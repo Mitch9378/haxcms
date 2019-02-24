@@ -6,6 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ncaro/php7-debian8-apache-nginx-mysql"
+  config.vagrant.plugins = ["vagrant-hostsupdater"]
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
   end
@@ -56,7 +57,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # run script as root
   config.vm.provision "shell-install-haxcms", type: "shell" do |s|
     s.privileged = true
-    s.inline = "ln -s /var/www/html ~/haxcms && cd /var/www/ && rm -rf html && git clone https://github.com/elmsln/haxcms.git && mv haxcms html && cd html && bash scripts/haxtheweb.sh admin admin admin@admin.admin admin && bash scripts/github-publishing-ssh.sh && sudo chmod 755 ~/.config"
+    s.inline = "ln -s /var/www/html ~/haxcms && cd /var/www/ && rm -rf html && git clone https://github.com/elmsln/haxcms.git && mv haxcms html && cd html && bash scripts/haxtheweb.sh admin admin admin@admin.admin admin && bash scripts/github-publishing-ssh.sh && sudo chmod 755 /home/vagrant/.config"
   end
   # all done! tell them how to login
   config.vm.provision "shell-output-link", type: "shell" do |s|

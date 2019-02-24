@@ -1,9 +1,9 @@
 #!/bin/bash
-if [ -d "~/.config" ]; then
-  sudo chmod 755 ~/.config
+if [ -d "/home/vagrant/.config" ]; then
+  sudo chmod 755 /home/vagrant/.config
 fi
 # set some defaults for publishing on the box
-cat >> ~/.ssh/config <<EOL
+cat >> /home/vagrant/.ssh/config <<EOL
 
 host github.com
   HostName github.com
